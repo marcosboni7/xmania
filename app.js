@@ -27,8 +27,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Rotas
 app.use('/', userRoutes);
 
-// Iniciando o servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+// O Vercel gerenciará a inicialização do servidor

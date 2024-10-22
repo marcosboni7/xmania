@@ -27,10 +27,12 @@ router.post('/login', async (req, res) => {
         const user = await User.findUserByUsername(username);
 
         // Verifique se o usuário existe e a senha está correta
-        if (user && await User.verifyPassword(password, user.password)) { // Usando a função de verificação de senha
+        if (user && await User.verifyPassword(password, user.password)) {
             req.session.userId = user.id; // Armazena o ID do usuário na sessão
+            console.log(`Usuário ${username} logado com sucesso!`); // Log de sucesso no login
             return res.redirect('/dashboard'); // Redireciona para a página de dashboard
         } else {
+            console.warn(`Falha ao logar: Usuário ${username} não encontrado ou senha incorreta.`); // Log de falha no login
             req.flash('message', 'Usuário ou senha incorretos');
             return res.redirect('/login'); // Redireciona para a página de login
         }
@@ -47,20 +49,23 @@ router.post('/register', async (req, res) => {
 
     try {
         await User.createUser(username, password);
+        console.log(`Usuário ${username} criado com sucesso!`); // Log de sucesso no registro
         req.flash('message', 'Usuário criado com sucesso. Você ganhou um emblema de boas-vindas! 🎉');
         res.redirect('/login'); // Redireciona para a página de login após registro
     } catch (error) {
         console.error('Erro ao criar usuário:', error);
         req.flash('message', 'Erro ao criar conta. Tente novamente.');
-        res.redirect('/register'); // Redireciona para a página de registro
+        return res.redirect('/register'); // Redireciona para a página de registro
     }
 });
 
 // Rota de dashboard
 router.get('/dashboard', (req, res) => {
     if (!req.session.userId) {
+        console.warn('Tentativa de acesso à dashboard sem autenticação.'); // Log de acesso não autorizado
         return res.redirect('/login'); // Redireciona para login se não estiver autenticado
     }
+    console.log(`Usuário com ID ${req.session.userId} acessando a dashboard.`); // Log de acesso à dashboard
     res.render('dashboard', { userId: req.session.userId }); // Renderiza a página de dashboard
 });
 
@@ -72,6 +77,7 @@ router.get('/logout', (req, res) => {
             return res.redirect('/dashboard'); // Redireciona de volta para o dashboard em caso de erro
         }
         res.clearCookie('connect.sid'); // Limpa o cookie da sessão
+        console.log('Sessão encerrada com sucesso. Redirecionando para a página de login.'); // Log de logout
         res.redirect('/login'); // Redireciona para a página de login
     });
 });

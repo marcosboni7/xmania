@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +10,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-900 text-white flex flex-col justify-between min-h-screen">
-    <div class="flex-grow flex items-center justify-center">
-        <div class="bg-gray-800 shadow-md rounded-lg flex max-w-4xl w-full overflow-hidden">
-            <div class="w-1/2 bg-gray-700 p-8">
+    <div class="flex-grow flex items-center justify-center px-4">
+        <div class="bg-gray-800 shadow-md rounded-lg flex flex-col md:flex-row max-w-4xl w-full overflow-hidden">
+            <div class="md:w-1/2 bg-gray-700 p-8">
                 <h2 class="text-4xl font-bold text-pink-400 mb-4">xmania</h2>
                 <p class="text-gray-300 text-lg mb-6">Xmania é desenvolvido por um fã do antigo jogo Minimundos conhecido como <b>Marcos Guerra</b> com o intuito de trazer nostalgia e diversão.</p>
                 <p class="text-gray-300 text-lg mb-6">Este projeto busca reviver a experiência clássica de jogos online que muitos amaram.</p>
                 <p class="text-gray-300 text-lg">Junte-se para compartilhar momentos, histórias e redescobrir uma paixão em um espaço feito por fãs, para fãs.</p>
             </div>
-            <div class="w-1/2 p-8 bg-gray-800">
+            <div class="md:w-1/2 p-8 bg-gray-800">
                 <h3 class="text-2xl font-bold mb-6 text-white">Entre com sua <span class="text-blue-400">conta Xmania</span></h3>
                 <form action="/login" method="POST">
                     <% if (message.length > 0) { %>

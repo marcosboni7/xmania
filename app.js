@@ -4,8 +4,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const userRoutes = require('./routes/index');
 const path = require('path');
-const bcrypt = require('bcryptjs');
-
+const bcrypt = require('bcrypt'); // use apenas esta linha
 
 const app = express();
 

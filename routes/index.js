@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
+// Rota principal redireciona para login
+router.get('/', (req, res) => {
+    res.redirect('/login'); // Redireciona diretamente para a página de login
+});
+
 // Rota para exibir a página de login
 router.get('/login', (req, res) => {
     const message = req.flash('message'); // Captura a mensagem de erro, se houver
@@ -37,14 +42,12 @@ router.post('/login', async (req, res) => {
 });
 
 // Rota para processar o registro
-// Rota para processar o registro
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
     try {
         await User.createUser(username, password);
         req.flash('message', 'Usuário criado com sucesso. Você ganhou um emblema de boas-vindas! 🎉');
-        req.flash('badge', 'https://media.discordapp.net/attachments/1186770965066158140/1295403752198504580/68014925-4ee6-4fcf-9960-8d98beeb8fc8_1.png?ex=6717c0c1&is=67166f41&hm=15cece3cfa6f48188f4bd816c359a4469db8ca39c79edbe7f6a9124301a2d7f3&=&format=webp&quality=lossless&width=395&height=395');
         res.redirect('/login'); // Redireciona para a página de login após registro
     } catch (error) {
         console.error('Erro ao criar usuário:', error);
@@ -53,7 +56,6 @@ router.post('/register', async (req, res) => {
     }
 });
 
-
 // Rota de dashboard
 router.get('/dashboard', (req, res) => {
     if (!req.session.userId) {
@@ -61,6 +63,7 @@ router.get('/dashboard', (req, res) => {
     }
     res.render('dashboard', { userId: req.session.userId }); // Renderiza a página de dashboard
 });
+
 // Rota para processar o logout
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {

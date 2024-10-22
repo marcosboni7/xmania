@@ -32,8 +32,5 @@ app.get('/', (req, res) => {
 // Rotas
 app.use('/', userRoutes);
 
-// O Vercel gerenciará a inicialização do servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+// Exporta o aplicativo para que a Vercel possa gerenciá-lo
+module.exports = app;

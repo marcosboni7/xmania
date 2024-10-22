@@ -14,7 +14,7 @@ const pool = new Pool({
 // Testando a conexão ao banco de dados
 pool.connect()
     .then(() => {
-        console.log('Conexão com o banco de dados estabelecida com sucesso!');
+        console.log('Conexão com o banco de dados estabelecida com sucessooo!');
     })
     .catch(err => {
         console.error('Erro ao conectar ao banco de dados:', err);

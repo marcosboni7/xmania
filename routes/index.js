@@ -49,15 +49,16 @@ router.post('/register', async (req, res) => {
 
     try {
         await User.createUser(username, password);
-        console.log(`Usuário ${username} criado com sucesso!`); // Log de sucesso no registro
         req.flash('message', 'Usuário criado com sucesso. Você ganhou um emblema de boas-vindas! 🎉');
         res.redirect('/login'); // Redireciona para a página de login após registro
     } catch (error) {
-        console.error('Erro ao criar usuário:', error);
-        req.flash('message', 'Erro ao criar conta. Tente novamente.');
-        return res.redirect('/register'); // Redireciona para a página de registro
+        console.error('Erro ao criar usuário:', error); // Log do erro
+        req.flash('message', 'Erro ao criar conta. Tente novamente.'); // Mensagem de erro
+        res.redirect('/register'); // Redireciona para a página de registro
     }
 });
+
+
 
 // Rota de dashboard
 router.get('/dashboard', (req, res) => {
